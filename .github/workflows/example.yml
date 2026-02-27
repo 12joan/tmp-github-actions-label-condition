@@ -11,4 +11,4 @@ jobs:
     steps:
       - run: echo "I got '$ENV_VAR'"
         env:
-          ENV_VAR: 'Hello, world!'
+          ENV_VAR: ${{ !contains(github.event.issue.labels.*.name, 'my-label') && 'hello' || 'world' }}
