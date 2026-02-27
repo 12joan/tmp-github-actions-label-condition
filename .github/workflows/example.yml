@@ -9,6 +9,9 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - run: echo "I got '$ENV_VAR'"
+      - run: |
+          echo "I got '$ENV_VAR'"
+          echo "$DEBUG_VALUE"
         env:
           ENV_VAR: ${{ contains(github.event.issue.labels.*.name, 'my-label') && 'hello' || 'world' }}
+          DEBUG_VALUE: ${{ toJSON(github.event.issue) }}
