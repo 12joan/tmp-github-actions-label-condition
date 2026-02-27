@@ -1,4 +1,7 @@
 on:
+  push:
+    branches:
+      - main
   pull_request:
     types:
       - opened
@@ -11,4 +14,4 @@ jobs:
     steps:
       - run: echo "I got '$ENV_VAR'"
         env:
-          ENV_VAR: 'Hello, world!'
+          ENV_VAR: ${{ !contains(github.event.pull_request.labels.*.name, 'my-label') && 'hello' || 'world' }}
