@@ -1,4 +1,7 @@
 on:
+  push:
+    branches:
+      - main
   pull_request:
     types:
       - opened
@@ -9,9 +12,6 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - run: |
-          echo "I got '$ENV_VAR'"
-          echo "$DEBUG_VALUE"
+      - run: echo "I got '$ENV_VAR'"
         env:
           ENV_VAR: ${{ !contains(github.event.pull_request.labels.*.name, 'my-label') && 'hello' || 'world' }}
-          DEBUG_VALUE: ${{ toJSON(github.event.pull_request) }}
