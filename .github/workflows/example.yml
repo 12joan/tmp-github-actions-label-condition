@@ -13,5 +13,5 @@ jobs:
           echo "I got '$ENV_VAR'"
           echo "$DEBUG_VALUE"
         env:
-          ENV_VAR: ${{ contains(github.event.pull_request.labels.*.name, 'my-label') && 'hello' || 'world' }}
+          ENV_VAR: ${{ !contains(github.event.pull_request.labels.*.name, 'my-label') && 'hello' || 'world' }}
           DEBUG_VALUE: ${{ toJSON(github.event.pull_request) }}
